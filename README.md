@@ -1,1 +1,2 @@
-# expressjs-structure
+# CHAT GPT API VERSION 1.0
+# NODEJS, SEQUELIZE, MYSQL

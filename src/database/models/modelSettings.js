@@ -9,10 +9,11 @@ const ModelSetting = db.sequelize().define(
     title: DataTypes.STRING,
     subTitle: DataTypes.STRING,
     description: DataTypes.STRING,
+    usage: DataTypes.STRING,
     maxRequestToken: DataTypes.INTEGER,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

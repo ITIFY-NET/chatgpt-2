@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { Account, Profile, DeviceToken } from '../database/models'
+import { Account, Profile, DeviceToken, Balance } from '../database/models'
 import { generateAccountToken } from '../utils/generateToken'
 import { SUCCESS_CODE } from '../constants/responseCode'
-import { DEFAULT_ROLE } from '../constants/system'
+import { DEFAULT_ROLE, DEFAULT_CREDITS, DEFAULT_MODEL_SETTING } from '../constants/system'
 const admin = require('firebase-admin')
 
 /**
@@ -22,11 +22,18 @@ export const login = async (request, response, next) => {
         ssoId: ssoId,
         validFlag: 1
       },
+      attributes: ['id', 'displayName', 'screenName', 'ssoId', 'email', 'role', 'updatedAt'],
       include: [
         {
           model: Profile,
-          as: 'profile'
-        }
+          as: 'profile',
+          attributes: ['modelSettingId', 'avatar']
+        },
+        {
+          model: Balance,
+          as: 'balance',
+          attributes: ['credits']
+        },
       ]
     })
     if (account) {
@@ -38,7 +45,7 @@ export const login = async (request, response, next) => {
         role: account.role,
         screenName: account.screenName
       }
-      console.log({ account })
+
       accountToken = generateAccountToken(accountInfo)
       await Account.update(
         { lastLoginAt: new Date() },
@@ -64,11 +71,16 @@ export const login = async (request, response, next) => {
       })
       await Profile.create({
         accountId: account.id,
+        modelSettingId: DEFAULT_MODEL_SETTING,
         avatar: user?.photoURL
       })
       await DeviceToken.create({
         accountId: account.id,
         deviceToken
+      })
+      const balance = await Balance.create({
+        accountId: account.id,
+        credits: DEFAULT_CREDITS
       })
       const accountInfo = {
         id: account.id,
@@ -77,6 +89,9 @@ export const login = async (request, response, next) => {
         role: account.role,
         ssoId: account.ssoId,
         screenName: account.screenName
+      }
+      account.balance = {
+        credits: balance.credits
       }
       accountToken = generateAccountToken(accountInfo)
     }

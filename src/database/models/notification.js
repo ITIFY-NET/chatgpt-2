@@ -15,8 +15,8 @@ const Notification = db.sequelize().define(
     title: DataTypes.STRING,
     detail: DataTypes.STRING,
     url: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

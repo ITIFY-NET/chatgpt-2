@@ -12,8 +12,8 @@ const MasterCollection = db.sequelize().define(
     modelName: DataTypes.STRING,
     metaData: DataTypes.JSON,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

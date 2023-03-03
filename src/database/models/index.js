@@ -6,7 +6,7 @@ import DeviceToken from './deviceToken'
 import HistoryRequest from './historyRequest'
 import Notification from './notification'
 import TransactionHistory from './transactionHistories'
-import ModelSetting from './settings'
+import ModelSetting from './modelSettings'
 
 Account.hasOne(Profile, {
   as: 'profile',

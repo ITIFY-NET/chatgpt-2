@@ -19,8 +19,8 @@ const HistoryRequest = db.sequelize().define(
     status: DataTypes.STRING,
     result: DataTypes.TEXT,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

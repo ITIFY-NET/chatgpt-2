@@ -18,8 +18,8 @@ const Account = db.sequelize().define(
     role: DataTypes.STRING,
     lastLoginAt: DataTypes.DATE,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

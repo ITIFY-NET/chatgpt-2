@@ -15,9 +15,9 @@ const TransactionHistory = db.sequelize().define(
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
-    ammount: DataTypes.DECIMAL,
-    credit: DataTypes.DECIMAL,
-    createdAt: DataTypes.DATE
+    amount: DataTypes.DECIMAL,
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

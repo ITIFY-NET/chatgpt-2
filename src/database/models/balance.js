@@ -12,10 +12,10 @@ const Balance = db.sequelize().define(
         key: "id",
       },
     },
-    credits: DataTypes.STRING,
+    credits: DataTypes.DECIMAL(10,2),
     validFlag: DataTypes.INTEGER,
     createdAt: DataTypes.BIGINT,
-    updatedAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false,

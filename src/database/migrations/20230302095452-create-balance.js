@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       credits: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10,2),
         defaultValue: DEFAULT_CREDITS
       },
       accountId: {
@@ -30,12 +30,12 @@ module.exports = {
         defaultValue: 1
       },
       createdAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        type: Sequelize.BIGINT,
+        defaultValue: Math.floor(Date.now() / 1000)
       },
       updatedAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        type: Sequelize.BIGINT,
+        defaultValue: Math.floor(Date.now() / 1000)
       }
     })
     /**

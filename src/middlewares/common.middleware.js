@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/config");
+const config = require('../configs/general.config');
 const models = require("../database/models").default;
 const { Op } = require("sequelize");
 import handleResponse from "../utils/handle-response";
@@ -11,7 +11,7 @@ const {
   UNAUTHORIZED_CODE,
   NOT_FOUND_CODE,
   ISE_CODE,
-} = require("../constants/responseCode.constants");
+} = require('../constants/responseCode');
 
 const requestLogger = (request, _response, next) => {
   try {
@@ -21,18 +21,6 @@ const requestLogger = (request, _response, next) => {
     console.log("Query: ", request.query);
     console.log("Body: ", request.body);
     console.log("Query: ", JSON.stringify(request.headers));
-    // models.Log.create({
-    //   type: 'request',
-    //   ip:
-    //     (request.headers['x-forwarded-for'] || '').split(',')[0] ||
-    //     request.connection.remoteAddress,
-    //   method: request.method,
-    //   apiUrl: request.path,
-    //   headers: JSON.stringify(request.headers),
-    //   body: JSON.stringify(request.body),
-    //   query: JSON.stringify(request.query),
-    //   params: JSON.stringify(request.params)
-    // })
     console.log("----");
     next();
   } catch (error) {

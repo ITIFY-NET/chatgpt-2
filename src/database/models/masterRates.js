@@ -10,8 +10,8 @@ const MasterRate = db.sequelize().define(
     name: DataTypes.STRING,
     credits: DataTypes.DECIMAL,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: DataTypes.BIGINT,
+    updatedAt: DataTypes.BIGINT
   },
   {
     timestamps: false

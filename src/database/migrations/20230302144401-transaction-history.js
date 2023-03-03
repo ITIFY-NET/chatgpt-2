@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Transaction_History', {
+    await queryInterface.createTable('Transaction_Histories', {
       transactionId: {
         allowNull: false,
         primaryKey: true,
@@ -21,13 +21,12 @@ module.exports = {
       amount: {
         type: Sequelize.DECIMAL
       },
-      validFlag: {
-        type: Sequelize.INTEGER,
-        defaultValue: 1
+      credit: {
+        type: Sequelize.DECIMAL
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       }
     })
     /**
@@ -39,7 +38,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transaction_History')
+    await queryInterface.dropTable('Transaction_Histories')
     /**
      * Add reverting commands here.
      *

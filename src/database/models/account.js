@@ -1,10 +1,10 @@
 // @ts-nocheck
-"use strict";
-import { DataTypes } from "sequelize";
-import { db } from "../db";
+'use strict'
+import { DataTypes } from 'sequelize'
+import { db } from '../db'
 
 const Account = db.sequelize().define(
-  "Account",
+  'Account',
   {
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -18,21 +18,12 @@ const Account = db.sequelize().define(
     role: DataTypes.STRING,
     lastLoginAt: DataTypes.DATE,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.BIGINT,
-    updatedAt: DataTypes.BIGINT,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   },
   {
-    timestamps: false,
+    timestamps: false
   }
-);
+)
 
-setTimeout(() => {
-  Account.associate = function (models) {
-    Account.hasOne(models.Profile, {
-      as: "profile",
-      foreignKey: "accountId",
-    });
-  };
-}, 0);
-
-export default Account;
+export default Account

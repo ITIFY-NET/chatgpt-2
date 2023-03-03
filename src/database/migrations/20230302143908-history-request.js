@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('History_Request', {
+    await queryInterface.createTable('History_Requests', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -37,11 +37,11 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       }
     })
     /**
@@ -53,7 +53,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('History_Request')
+    await queryInterface.dropTable('History_Requests')
     /**
      * Add reverting commands here.
      *

@@ -1,20 +1,12 @@
 'use strict'
-
-const { DEFAULT_CREDITS } = require('../../constants/system')
-
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Balances', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Profiles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      credits: {
-        type: Sequelize.DECIMAL,
-        defaultValue: DEFAULT_CREDITS
       },
       accountId: {
         type: Sequelize.INTEGER,
@@ -24,6 +16,19 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      modelSettingId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Model_Settings',
+          key: 'id'
+        }
+      },
+      avatar: {
+        type: Sequelize.STRING
+      },
+      bio: {
+        type: Sequelize.TEXT
       },
       validFlag: {
         type: Sequelize.INTEGER,
@@ -38,21 +43,8 @@ module.exports = {
         defaultValue: Sequelize.fn('now')
       }
     })
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
   },
-
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Balances')
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Profiles')
   }
 }

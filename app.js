@@ -1,12 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const port = process.env.PORT || 3000
-const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route')
 const { db } = require('./src/database/db')
 const router = require('./src/routes/index')
-db.connect().then()
-
+const admin = require('firebase-admin')
+const { serviceAccount } = require('./src/configs/system')
 const app = express()
+
+db.connect().then()
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -14,9 +14,6 @@ app.use(
   })
 )
 app.use('/api', router)
-app.get('/', (req, res) => {
-  res.json({ message: 'ok' })
-})
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
@@ -25,6 +22,10 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message })
 
   return
+})
+
+export const firebaseAdmin = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 })
 
 module.exports = app

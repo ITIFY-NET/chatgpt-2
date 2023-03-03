@@ -1,63 +1,63 @@
-"use strict";
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Accounts", {
+    await queryInterface.createTable('Accounts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       displayName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       hashedPassword: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       phoneNumber: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       screenName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       ssoId: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       ssoType: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       ssoToken: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       lastLoginAt: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       validFlag: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        defaultValue: 1
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
-      },
-    });
+        defaultValue: Sequelize.fn('now')
+      }
+    })
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable("Accounts");
-  },
-};
+    await queryInterface.dropTable('Accounts')
+  }
+}

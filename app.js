@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express = require('express')
 const bodyParser = require('body-parser')
 const { db } = require('./src/database/db')
@@ -16,7 +17,7 @@ app.use(
 app.use('/api', router)
 
 /* Error handler middleware */
-app.use((err, req, res, next) => {
+app.use((err, _req, res, next) => {
   const statusCode = err.statusCode || 500
   console.error(err.message, err.stack)
   res.status(statusCode).json({ message: err.message })

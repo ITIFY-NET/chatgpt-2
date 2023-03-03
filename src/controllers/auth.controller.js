@@ -15,6 +15,7 @@ export const login = async (request, response, next) => {
   try {
     const { email, ssoToken, ssoType, ssoId, deviceToken } = request.body
     let account = null
+    let accountJSON = null
     let accountToken = null
     const user = await admin.auth().getUser(ssoId)
     account = await Account.findOne({
@@ -57,6 +58,7 @@ export const login = async (request, response, next) => {
           where: { accountId: account.id }
         }
       )
+      accountJSON = account.toJSON()
     } else {
       account = await Account.create({
         email: user.providerData[0].email || email,
@@ -69,7 +71,7 @@ export const login = async (request, response, next) => {
         lastLoginAt: new Date(),
         screenName: `chatpgt_${Math.floor(new Date().getTime() / 1000)}`
       })
-      await Profile.create({
+      const profile = await Profile.create({
         accountId: account.id,
         modelSettingId: DEFAULT_MODEL_SETTING,
         avatar: user?.photoURL
@@ -90,15 +92,20 @@ export const login = async (request, response, next) => {
         ssoId: account.ssoId,
         screenName: account.screenName
       }
-      account.balance = {
+      accountJSON = account.toJSON()
+      accountJSON.balance = {
         credits: balance.credits
+      }
+      accountJSON.profile = {
+        modelSettingId: profile.modelSettingId,
+        avatar: profile.avatar
       }
       accountToken = generateAccountToken(accountInfo)
     }
 
     return response.status(SUCCESS_CODE).json({
       status: SUCCESS_CODE,
-      data: { token: accountToken, account: account },
+      data: { token: accountToken, account: accountJSON },
       code: SUCCESS_CODE
     })
   } catch (error) {

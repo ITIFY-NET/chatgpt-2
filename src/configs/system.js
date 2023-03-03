@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const serviceAccount = {
   type: 'service_account',
   project_id: 'chatgp2-dev',

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const port = process.env.PORT || 3000
 const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route')
 const { db } = require('./src/database/db')
+const router = require('./src/routes/index')
 db.connect().then()
 
 const app = express()
@@ -12,12 +13,10 @@ app.use(
     extended: true
   })
 )
-
+app.use('/api', router)
 app.get('/', (req, res) => {
   res.json({ message: 'ok' })
 })
-
-app.use('/programming-languages', programmingLanguagesRouter)
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 import { DataTypes } from "sequelize";
 import { db } from "../db";
@@ -24,6 +25,7 @@ const Account = db.sequelize().define(
     timestamps: false,
   }
 );
+
 setTimeout(() => {
   Account.associate = function (models) {
     Account.hasOne(models.Profile, {

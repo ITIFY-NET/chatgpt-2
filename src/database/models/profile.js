@@ -1,6 +1,6 @@
-"use strict";
-import { DataTypes } from "sequelize";
-import { db } from "../db";
+"use strict"
+import { DataTypes } from "sequelize"
+import { db } from "../db"
 
 const Profile = db.sequelize().define(
   "Profile",
@@ -16,14 +16,14 @@ const Profile = db.sequelize().define(
   {
     timestamps: false,
   }
-);
+)
 
 setTimeout(() => {
   Profile.associate = function (models) {
     Profile.belongsTo(models.Account, {
       foreignKey: "accountId",
-    });
-  };
-}, 0);
+    })
+  }
+}, 0)
 
-export default Profile;
+export default Profile

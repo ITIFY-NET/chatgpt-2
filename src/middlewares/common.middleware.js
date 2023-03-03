@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
-const models = require("../database/models");
+const models = require("../database/models").default;
 const { Op } = require("sequelize");
 import handleResponse from "../utils/handle-response";
 const BEARER_LENGTH = 7;

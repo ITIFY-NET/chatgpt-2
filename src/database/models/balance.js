@@ -2,7 +2,7 @@
 import { DataTypes } from "sequelize";
 import { db } from "../db";
 
-const Profile = db.sequelize().define(
+const Balance = db.sequelize().define(
   "Balance",
   {
     accountId: {
@@ -22,4 +22,4 @@ const Profile = db.sequelize().define(
   }
 );
 
-export default Profile;
+export default Balance;

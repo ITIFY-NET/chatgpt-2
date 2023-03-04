@@ -106,7 +106,8 @@ export const login = async (request, response, next) => {
     return response.status(SUCCESS_CODE).json({
       status: SUCCESS_CODE,
       data: { token: accountToken, account: accountJSON },
-      code: SUCCESS_CODE
+      code: SUCCESS_CODE,
+      success: true
     })
   } catch (error) {
     console.log(error)

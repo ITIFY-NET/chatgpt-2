@@ -7,6 +7,7 @@ import HistoryRequest from './historyRequest'
 import Notification from './notification'
 import TransactionHistory from './transactionHistories'
 import ModelSetting from './modelSettings'
+import MasterToken from './masterToken'
 
 Account.hasOne(Profile, {
   as: 'profile',
@@ -38,5 +39,7 @@ export {
   DeviceToken,
   HistoryRequest,
   Notification,
-  TransactionHistory
+  TransactionHistory,
+  MasterToken,
+  ModelSetting
 }

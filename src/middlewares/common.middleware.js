@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require('../configs/general.config');
-const models = require("../database/models").default;
-const { Op } = require("sequelize");
+import { Account, Profile, Balance, ModelSetting } from '../database/models'
 import handleResponse from "../utils/handle-response";
 const BEARER_LENGTH = 7;
 
@@ -69,11 +68,31 @@ const tokenExtractor = async (req, res, next) => {
       config.SECRET
     );
 
-    const currentUser = await models.Account.findOne({
+    const currentUser = await Account.findOne({
       where: {
+        // @ts-ignore
         id: decodedToken.data.accountInfo.id,
         validFlag: 1,
       },
+      include: [
+        {
+          model: Profile,
+          as: 'profile',
+          attributes: ['modelSettingId'],
+          include: [
+            {
+              model: ModelSetting,
+              as: 'setting',
+              attributes: ['modelName', 'maxRequestToken'],
+            }
+          ]
+        },
+        {
+          model: Balance,
+          as: 'balance',
+          attributes: ['credits']
+        },
+      ]
     });
     if (!currentUser) {
       return res.status(401).json({
@@ -154,6 +173,7 @@ const tokenExtractorV1 = async (req, res, next) => {
 
     const currentUser = await models.Account.findOne({
       where: {
+        // @ts-ignore
         id: decodedToken.data.accountInfo.id,
         validFlag: 1,
       },

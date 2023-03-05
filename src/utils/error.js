@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import { ISE_CODE } from 'src/constants/responseCode'
+import { ISE_CODE } from '../constants/responseCode'
 
 function parseError(error) {
   if (!error) {

@@ -3,7 +3,8 @@ import {
   ACCEPT_ERROR_STATUS,
   ISE_CODE,
   SUCCESS_CODE
-} from 'src/constants/responseCode'
+} from '../constants/responseCode'
+
 import errorUtil from './error'
 import responseBuilder from './response-builder'
 

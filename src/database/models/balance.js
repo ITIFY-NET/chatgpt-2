@@ -1,25 +1,25 @@
-"use strict";
-import { DataTypes } from "sequelize";
-import { db } from "../db";
+'use strict'
+import { DataTypes } from 'sequelize'
+import { db } from '../db'
 
 const Balance = db.sequelize().define(
-  "Balance",
+  'Balance',
   {
     accountId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Account",
-        key: "id",
-      },
+        model: 'Account',
+        key: 'id'
+      }
     },
-    credits: DataTypes.DECIMAL(10,2),
+    credits: DataTypes.DECIMAL(10, 2),
     validFlag: DataTypes.INTEGER,
     createdAt: DataTypes.BIGINT,
     updatedAt: DataTypes.BIGINT
   },
   {
-    timestamps: false,
+    timestamps: false
   }
-);
+)
 
-export default Balance;
+export default Balance

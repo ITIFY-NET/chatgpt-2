@@ -45,13 +45,7 @@ const inputValidator = (schema, property) => {
       next()
     } else {
       const { details } = error
-      console.log({
-        details
-      })
       const message = details.map((i) => i.message).join(',')
-      console.log({
-        message
-      })
       error.code = 400
       error.message = message
       return handleResponse(error, null, req, res)

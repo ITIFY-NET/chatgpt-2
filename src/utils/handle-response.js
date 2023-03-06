@@ -8,7 +8,7 @@ import {
 import errorUtil from './error'
 import responseBuilder from './response-builder'
 
-const handleMessageResponse = (
+export const handleMessageResponse = (
   error,
   req,
   res,

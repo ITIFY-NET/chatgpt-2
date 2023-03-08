@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MasterToken } from '../database/models'
 import { sendMessageSimple } from '../services/telegram.service'
-import { getMasterToken } from './master'
+import { getCollectionById, getMasterToken } from './master'
 
 const OPEN_AI_API_ENDPOINT = 'https://api.openai.com/v1/completions'
 const STRING_TOKEN_RATE = 0.75
@@ -52,7 +52,7 @@ const chatCompletionGeneration = async (question, currentUser) => {
   return arrayBuffer
 }
 
-const textCompletionGeneration = async (question, currentUser) => {
+const textCompletionGeneration = async (question, contextId, currentUser) => {
   let originResult = null
   let originRequest = null
   let responseStatus = 200
@@ -63,10 +63,12 @@ const textCompletionGeneration = async (question, currentUser) => {
     maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR
   )
   const masterToken = await getMasterToken()
+  const masterCollection = await getCollectionById(contextId)
+  const buildPrompt = masterCollection.dataValues.metaData.prompt + question
   try {
     const bufferData = await axios.post(
       OPEN_AI_API_ENDPOINT,
-      { ...params, max_tokens: maxToken, stream: true },
+      { ...params, max_tokens: maxToken, stream: true, prompt: buildPrompt },
       {
         headers: {
           Authorization: `Bearer ${masterToken}`,

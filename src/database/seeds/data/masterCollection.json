@@ -1,0 +1,64 @@
+{
+  "collections":[
+    {
+      "category":"Social",
+      "title":"Facebook",
+      "description":"Write a facebook post",
+      "thumbnail":"",
+      "metaData":{
+        "prompt":"Write a facebook post for this:\n",
+        "temperature":0.3,
+        "top_p":0.7,
+        "n":1
+      },
+      "validFlag":1,
+      "createdAt":1677679481,
+      "updatedAt":1677679481
+    },
+    {
+      "category":"Social",
+      "title":"LinkedIn",
+      "description":"Write a LinkedIn post",
+      "thumbnail":"",
+      "metaData":{
+        "prompt":"Write a linkedn post for this:\n",
+        "temperature":0.3,
+        "top_p":0.7,
+        "n":1
+      },
+      "validFlag":1,
+      "createdAt":1677679481,
+      "updatedAt":1677679481
+    },
+    {
+      "category":"General",
+      "title":"Grammar correction",
+      "description":"Correction sentences into standard English",
+      "thumbnail":"",
+      "metaData":{
+        "prompt":"Correct this to standard English:\n\n",
+        "temperature":0,
+        "max_tokens":60,
+        "top_p":1.0
+      },
+      "validFlag":1,
+      "createdAt":1677679481,
+      "updatedAt":1677679481
+    },
+    {
+      "category":"General",
+      "title":"Summarize for a 2nd grader",
+      "description":"Translates complex text into more straightforward concepts",
+      "thumbnail":"",
+      "metaData":{
+        "prompt":"Summarize the below context:\n\n",
+        "temperature":0,
+        "max_tokens":60,
+        "top_p":1.0
+      },
+      "validFlag":1,
+      "createdAt":1677679481,
+      "updatedAt":1677679481
+    }
+  ]
+}

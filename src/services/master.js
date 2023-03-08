@@ -1,4 +1,6 @@
 import MasterToken from '../database/models/masterToken'
+import ModelSetting from '../database/models/modelSettings'
+import MasterCollection from '../database/models/masterCollections'
 
 const getMasterToken = async () => {
   const masterToken = await MasterToken.findOne({
@@ -6,8 +8,34 @@ const getMasterToken = async () => {
       validFlag: 1
     },
     order: [['updatedAt', 'asc']]
-  }).then((record) => record.update({ updatedAt: Math.floor(Date.now() / 1000) }))
+  }).then((record) =>
+    record.update({ updatedAt: Math.floor(Date.now() / 1000) })
+  )
   return masterToken.dataValues.token
 }
 
-export { getMasterToken }
+const getModelSetting = async () => {
+  return ModelSetting.findAll()
+}
+
+const getMasterCollection = async () => {
+  return MasterCollection.findAll()
+}
+
+/**
+ * @param {number} id
+ */
+const getCollectionById = async (id) => {
+  return MasterCollection.findOne({
+    where: {
+      id
+    }
+  })
+}
+
+export {
+  getMasterToken,
+  getModelSetting,
+  getMasterCollection,
+  getCollectionById
+}

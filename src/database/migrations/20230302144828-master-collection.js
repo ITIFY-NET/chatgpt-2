@@ -26,7 +26,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       metaData: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
+        get: function () {
+          return JSON.parse(this.getDataValue('metaData'))
+        }
       },
       validFlag: {
         type: Sequelize.INTEGER,

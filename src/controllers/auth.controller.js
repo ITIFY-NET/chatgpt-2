@@ -2,7 +2,11 @@
 import { Account, Profile, DeviceToken, Balance } from '../database/models'
 import { generateAccountToken } from '../utils/generateToken'
 import { SUCCESS_CODE } from '../constants/responseCode'
-import { DEFAULT_ROLE, DEFAULT_CREDITS, DEFAULT_MODEL_SETTING } from '../constants/system'
+import {
+  DEFAULT_ROLE,
+  DEFAULT_CREDITS,
+  DEFAULT_MODEL_SETTING
+} from '../constants/system'
 const admin = require('firebase-admin')
 
 /**
@@ -23,7 +27,15 @@ export const login = async (request, response, next) => {
         ssoId: ssoId,
         validFlag: 1
       },
-      attributes: ['id', 'displayName', 'screenName', 'ssoId', 'email', 'role', 'updatedAt'],
+      attributes: [
+        'id',
+        'displayName',
+        'screenName',
+        'ssoId',
+        'email',
+        'role',
+        'updatedAt'
+      ],
       include: [
         {
           model: Profile,
@@ -34,7 +46,7 @@ export const login = async (request, response, next) => {
           model: Balance,
           as: 'balance',
           attributes: ['credits']
-        },
+        }
       ]
     })
     if (account) {

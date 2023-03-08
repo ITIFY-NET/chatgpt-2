@@ -11,4 +11,11 @@ router.post(
   writeController.create
 )
 
+router.get('/setting', middleware.tokenExtractor, writeController.getModels)
+router.get(
+  '/collections',
+  middleware.tokenExtractor,
+  writeController.getCollection
+)
+
 export { router }

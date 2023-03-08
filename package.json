@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node server.js",
     "serve": "nodemon server.js",
-    "test": "jest"
+    "test": "jest",
+    "eslint": "eslint . --ext .js,.ts",
+    "eslint:fix": "eslint --fix .",
+    "prettier": "npx prettier ./ --check",
+    "prettier:fix": "yarn prettier -- --write",
+    "format": "yarn prettier:fix && yarn eslint:fix"
   },
   "repository": {
     "type": "git",
@@ -36,6 +41,8 @@
     "sequelize-cli": "^6.6.0"
   },
   "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2",
     "jest": "^27.4.5"
   },
   "jest": {

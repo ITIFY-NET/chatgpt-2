@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       credits: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10, 2),
         defaultValue: DEFAULT_CREDITS
       },
       accountId: {

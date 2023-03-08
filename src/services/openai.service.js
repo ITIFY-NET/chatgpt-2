@@ -37,17 +37,13 @@ const chatCompletionGeneration = async (question, currentUser) => {
     )
     return arrayBuffer
   } catch (error) {
-    console.log(error.response)
-    // handleExceededQuota(error.response.data.error)
-    //   const msgToTelegram = `Error notification:
-    // App            : [${process.env.ENV}] ${process.env.APP_NAME}
-    // Type           : OpenAI service
-    // Error          : ${JSON.stringify(error.response.data.error)}
-    // `
-    //   sendMessageSimple(msgToTelegram)
-    //   originResult = error.response.data.error
-    //   // originRequest = params
-    //   responseStatus = error.response.status
+    handleExceededQuota(error.response.data.error)
+      const msgToTelegram = `Error notification:
+    App            : [${process.env.ENV}] ${process.env.APP_NAME}
+    Type           : OpenAI service
+    Error          : ${JSON.stringify(error.response.data.error)}
+    `
+      sendMessageSimple(msgToTelegram)
   }
   return arrayBuffer
 }

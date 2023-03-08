@@ -21,7 +21,7 @@ module.exports = {
         unique: true
       },
       credits: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.BIGINT
       },
       validFlag: {
         type: Sequelize.INTEGER,

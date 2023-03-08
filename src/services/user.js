@@ -1,7 +1,7 @@
-import Profile from '../database/models/profile'
+import { ModelSetting, Profile } from '../database/models'
 
 const getModelSetting = async () => {
-  return Profile.findAll()
+  return ModelSetting.findAll()
 }
 
 const updateSettingModelUser = async (data) => {

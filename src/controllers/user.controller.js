@@ -15,8 +15,3 @@ export const setting = async (req, res, next) => {
   )
   return handleResponse(error, result, req, res)
 }
-
-export const getModels = async (req, res, next) => {
-  const [error, result] = await to(getModelSetting())
-  return handleResponse(error, result, req, res)
-}

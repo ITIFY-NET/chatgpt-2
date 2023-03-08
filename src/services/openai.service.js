@@ -64,18 +64,18 @@ const textCompletionGeneration = async (question, currentUser) => {
   )
   const masterToken = await getMasterToken()
   try {
-    const { data } = await axios.post(
+    const bufferData = await axios.post(
       OPEN_AI_API_ENDPOINT,
-      { ...params, max_tokens: maxToken },
+      { ...params, max_tokens: maxToken, stream: true },
       {
         headers: {
           Authorization: `Bearer ${masterToken}`,
           'content-type': 'application/json'
-        }
+        },
+        responseType: 'stream'
       }
     )
-    originResult = data
-    originRequest = params
+    return bufferData
   } catch (error) {
     handleExceededQuota(error.response.data.error)
     const msgToTelegram = `Error notification:
@@ -87,11 +87,11 @@ const textCompletionGeneration = async (question, currentUser) => {
     originResult = error.response.data.error
     originRequest = params
     responseStatus = error.response.status
-  }
-  return {
-    originResult: originResult,
-    originRequest: originRequest,
-    responseStatus: responseStatus
+    return {
+      originResult: originResult,
+      originRequest: originRequest,
+      responseStatus: responseStatus
+    }
   }
 }
 

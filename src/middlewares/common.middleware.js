@@ -40,7 +40,6 @@ const responseLogger = (request, response, next) => {
 const inputValidator = (schema, property) => {
   return (req, res, next) => {
     const { error } = schema.validate(req[property])
-    console.log(error)
     const valid = error == null
     if (valid) {
       next()

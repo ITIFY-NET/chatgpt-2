@@ -12,8 +12,8 @@ import handleResponse from '../utils/handle-response'
 export const create = async (req, res, next) => {
   const { question } = req.body
   const currentUser = req.currentUser
-  const [error, result] = await to(
-    textCompletionGeneration(question, currentUser)
-  )
-  return handleResponse(error, result, req, res)
+  const arrayBuffer = await textCompletionGeneration(question, currentUser)
+  const contentType = arrayBuffer.headers['content-type']
+  res.setHeader('content-type', contentType)
+  arrayBuffer.data.pipe(res)
 }

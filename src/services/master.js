@@ -19,7 +19,16 @@ const getModelSetting = async () => {
 }
 
 const getMasterCollection = async () => {
-  return MasterCollection.findAll()
+  return MasterCollection.findAll({
+    attributes: [
+      'id',
+      'category',
+      'title',
+      'description',
+      'thumbnail',
+      'createdAt'
+    ],
+  })
 }
 
 /**

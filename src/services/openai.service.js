@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { MasterToken } from '../database/models'
-import { sendMessageSimple } from '../services/telegram.service'
 import { getCollectionById, getMasterToken } from './master'
 
 const OPEN_AI_API_ENDPOINT = 'https://api.openai.com/v1/completions'
@@ -8,14 +7,11 @@ const STRING_TOKEN_RATE = 0.75
 const SAFETY_FACTOR = 100
 
 const chatCompletionGeneration = async (question, currentUser) => {
-  let arrayBuffer = null
   try {
     const masterToken = await getMasterToken()
     const model = currentUser.profile.setting.modelName
     const maxRequest = currentUser.profile.setting.maxRequestToken
-    const maxToken = Math.floor(
-      maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR
-    )
+    const maxToken = Math.floor(maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR)
     const arrayBuffer = await axios.post(
       OPEN_AI_API_ENDPOINT,
       {
@@ -37,31 +33,15 @@ const chatCompletionGeneration = async (question, currentUser) => {
     )
     return arrayBuffer
   } catch (error) {
-    console.log(error.response)
-    // handleExceededQuota(error.response.data.error)
-    //   const msgToTelegram = `Error notification:
-    // App            : [${process.env.ENV}] ${process.env.APP_NAME}
-    // Type           : OpenAI service
-    // Error          : ${JSON.stringify(error.response.data.error)}
-    // `
-    //   sendMessageSimple(msgToTelegram)
-    //   originResult = error.response.data.error
-    //   // originRequest = params
-    //   responseStatus = error.response.status
+    return error
   }
-  return arrayBuffer
 }
 
 const textCompletionGeneration = async (question, contextId, currentUser) => {
-  let originResult = null
-  let originRequest = null
-  let responseStatus = 200
   const model = currentUser.profile.setting
   const params = generateParams(question, model, {})
   const maxRequest = currentUser.profile.setting.maxRequestToken
-  const maxToken = Math.floor(
-    maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR
-  )
+  const maxToken = Math.floor(maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR)
   const masterToken = await getMasterToken()
   const masterCollection = await getCollectionById(contextId)
   const buildPrompt = masterCollection.dataValues.metaData.prompt + question
@@ -79,21 +59,7 @@ const textCompletionGeneration = async (question, contextId, currentUser) => {
     )
     return bufferData
   } catch (error) {
-    handleExceededQuota(error.response.data.error)
-    const msgToTelegram = `Error notification:
-  App            : [${process.env.ENV}] ${process.env.APP_NAME}
-  Type           : OpenAI service
-  Error          : ${JSON.stringify(error.response.data.error)}
-  `
-    sendMessageSimple(msgToTelegram)
-    originResult = error.response.data.error
-    originRequest = params
-    responseStatus = error.response.status
-    return {
-      originResult: originResult,
-      originRequest: originRequest,
-      responseStatus: responseStatus
-    }
+    return error
   }
 }
 
@@ -115,9 +81,7 @@ const generateParams = (question, model, options) => {
   // A helpful rule of thumb is that one token generally corresponds to ~4 characters of text for common English text.
   // This translates to roughly ¾ of a word (so 100 tokens ~= 75 words).
   params['model'] = model.modelName
-  const prompt = contentLength
-    ? params['prompt'].replace('<length>', contentLength)
-    : params['prompt']
+  const prompt = contentLength ? params['prompt'].replace('<length>', contentLength) : params['prompt']
   params['prompt'] = `${prompt} ${question}`
   return params
 }
@@ -130,8 +94,4 @@ const parseResultFromOpenAI = (data) => {
   return ''
 }
 
-export {
-  textCompletionGeneration,
-  chatCompletionGeneration,
-  parseResultFromOpenAI
-}
+export { textCompletionGeneration, chatCompletionGeneration, parseResultFromOpenAI }

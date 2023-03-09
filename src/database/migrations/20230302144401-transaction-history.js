@@ -19,10 +19,10 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       amount: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.BIGINT
       },
       credit: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.BIGINT
       },
       createdAt: {
         type: Sequelize.BIGINT,

@@ -50,8 +50,13 @@ export const create = async (req, res, next) => {
 }
 
 export const getModels = async (req, res, next) => {
+  const modelSettingUser = req.currentUser.profile.modelSettingId
   const [error, result] = await to(getModelSetting())
-  return handleResponse(error, result, req, res)
+  const data = result.map((r) => ({
+    ...r.dataValues,
+    isSetting: r.dataValues.id === modelSettingUser
+  }))
+  return handleResponse(error, data, req, res)
 }
 
 export const getCollection = async (req, res, next) => {

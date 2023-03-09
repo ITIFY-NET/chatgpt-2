@@ -11,6 +11,7 @@ const ModelSetting = db.sequelize().define(
     description: DataTypes.STRING,
     usage: DataTypes.STRING,
     maxRequestToken: DataTypes.INTEGER,
+    requestCredit: DataTypes.BIGINT,
     validFlag: DataTypes.INTEGER,
     createdAt: DataTypes.BIGINT,
     updatedAt: DataTypes.BIGINT

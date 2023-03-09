@@ -6,7 +6,7 @@ const schemas = {
   }),
   write: Joi.object({
     question: Joi.string().max(2048).required(),
-    contextId: Joi.number().required()
+    contextId: Joi.number().optional()
   })
 }
 

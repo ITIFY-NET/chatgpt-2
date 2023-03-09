@@ -4,13 +4,7 @@ import { Account, Profile, Balance, ModelSetting } from '../database/models'
 import handleResponse from '../utils/handle-response'
 const BEARER_LENGTH = 7
 
-const {
-  UNPROCESSABLE_CODE,
-  BAD_REQUEST_CODE,
-  UNAUTHORIZED_CODE,
-  NOT_FOUND_CODE,
-  ISE_CODE
-} = require('../constants/responseCode')
+const { UNPROCESSABLE_CODE, BAD_REQUEST_CODE, UNAUTHORIZED_CODE, NOT_FOUND_CODE, ISE_CODE } = require('../constants/responseCode')
 
 const requestLogger = (request, _response, next) => {
   try {
@@ -63,10 +57,7 @@ const tokenExtractor = async (req, res, next) => {
     })
   }
   try {
-    const decodedToken = jwt.verify(
-      authorization.substring(BEARER_LENGTH),
-      config.SECRET
-    )
+    const decodedToken = jwt.verify(authorization.substring(BEARER_LENGTH), config.SECRET)
 
     const currentUser = await Account.findOne({
       where: {
@@ -104,7 +95,11 @@ const tokenExtractor = async (req, res, next) => {
     req.currentUser = currentUser
     next()
   } catch (error) {
-    next(error)
+    return res.status(401).json({
+      status: UNAUTHORIZED_CODE,
+      success: false,
+      message: 'invalid_token'
+    })
   }
 }
 
@@ -118,9 +113,7 @@ const unknownEndpoint = (_req, res) => {
 
 const errorHandler = (error, _req, res, next) => {
   if (error.name === 'ValidationError') {
-    return res
-      .status(UNPROCESSABLE_CODE)
-      .json({ success: false, message: error.message })
+    return res.status(UNPROCESSABLE_CODE).json({ success: false, message: error.message })
   } else if (error.name === 'JsonWebTokenError') {
     return res.status(UNAUTHORIZED_CODE).json({
       status: UNAUTHORIZED_CODE,
@@ -134,9 +127,7 @@ const errorHandler = (error, _req, res, next) => {
       message: 'token_expired'
     })
   } else if (error.name === 'TypeError') {
-    return res
-      .status(NOT_FOUND_CODE)
-      .json({ status: NOT_FOUND_CODE, success: false, message: 'not_found' })
+    return res.status(NOT_FOUND_CODE).json({ status: NOT_FOUND_CODE, success: false, message: 'not_found' })
   } else if (error.name === 'SyntaxError') {
     return res.status(BAD_REQUEST_CODE).json({
       status: BAD_REQUEST_CODE,
@@ -144,17 +135,11 @@ const errorHandler = (error, _req, res, next) => {
       message: 'bad_request'
     })
   } else if (error.name === 'SequelizeUniqueConstraintError') {
-    return res
-      .status(ISE_CODE)
-      .json({ status: ISE_CODE, success: false, message: 'ISE' })
+    return res.status(ISE_CODE).json({ status: ISE_CODE, success: false, message: 'ISE' })
   } else if (error.name === 'SequelizeDatabaseError') {
-    return res
-      .status(ISE_CODE)
-      .json({ status: ISE_CODE, success: false, message: 'ISE' })
+    return res.status(ISE_CODE).json({ status: ISE_CODE, success: false, message: 'ISE' })
   } else if (error.name === 'Error') {
-    return res
-      .status(BAD_REQUEST_CODE)
-      .json({ status: BAD_REQUEST_CODE, success: false, message: 'ISE' })
+    return res.status(BAD_REQUEST_CODE).json({ status: BAD_REQUEST_CODE, success: false, message: 'ISE' })
   }
   next(error)
 }
@@ -166,10 +151,7 @@ const tokenExtractorV1 = async (req, res, next) => {
     return
   }
   try {
-    const decodedToken = jwt.verify(
-      authorization.substring(BEARER_LENGTH),
-      config.SECRET
-    )
+    const decodedToken = jwt.verify(authorization.substring(BEARER_LENGTH), config.SECRET)
 
     const currentUser = await models.Account.findOne({
       where: {

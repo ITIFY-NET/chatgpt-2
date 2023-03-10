@@ -28,6 +28,10 @@ module.exports = {
       maxRequestToken: {
         type: Sequelize.INTEGER
       },
+      requestCredit: {
+        type: Sequelize.BIGINT,
+        defaultValue: 0
+      },
       validFlag: {
         type: Sequelize.INTEGER,
         defaultValue: 1

@@ -22,6 +22,7 @@ module.exports = {
         usage:
           'complex intent, cause and effect, generation creative, search, summarization for audience',
         maxRequestToken: 4096,
+        requestCredit: 70,
         validFlag: 1,
         createdAt: 1677679481,
         updatedAt: 1677679481
@@ -34,6 +35,7 @@ module.exports = {
         usage:
           'language translation, complex classification, sentiment, summarization',
         maxRequestToken: 2048,
+        requestCredit: 50,
         validFlag: 1,
         createdAt: 1677679481,
         updatedAt: 1677679481
@@ -46,6 +48,7 @@ module.exports = {
           'Capable of straightforward tasks, very fast, and lower cost.',
         usage: 'modern classification, semantic search',
         maxRequestToken: 2048,
+        requestCredit: 20,
         validFlag: 1,
         createdAt: 1677679481,
         updatedAt: 1677679481
@@ -59,6 +62,7 @@ module.exports = {
         usage:
           'parsing text, simple classfication, address correction, keywords',
         maxRequestToken: 2048,
+        requestCredit: 10,
         validFlag: 1,
         createdAt: 1677679481,
         updatedAt: 1677679481

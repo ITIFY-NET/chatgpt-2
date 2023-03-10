@@ -4,7 +4,7 @@
       "category":"Social",
       "title":"Facebook",
       "description":"Write a facebook post",
-      "thumbnail":"",
+      "thumbnail":"https://storage.googleapis.com/itify-customshirt.appspot.com/chatGPT2/icon/icon-facebook.png",
       "metaData":{
         "prompt":"Write a facebook post for this:\n",
         "temperature":0.3,
@@ -19,7 +19,7 @@
       "category":"Social",
       "title":"LinkedIn",
       "description":"Write a LinkedIn post",
-      "thumbnail":"",
+      "thumbnail":"https://storage.googleapis.com/itify-customshirt.appspot.com/chatGPT2/icon/icon-linkein.png",
       "metaData":{
         "prompt":"Write a linkedn post for this:\n",
         "temperature":0.3,
@@ -34,7 +34,7 @@
       "category":"General",
       "title":"Grammar correction",
       "description":"Correction sentences into standard English",
-      "thumbnail":"",
+      "thumbnail":"https://storage.googleapis.com/itify-customshirt.appspot.com/chatGPT2/icon/icon-frammar.png",
       "metaData":{
         "prompt":"Correct this to standard English:\n\n",
         "temperature":0,
@@ -49,7 +49,7 @@
       "category":"General",
       "title":"Summarize for a 2nd grader",
       "description":"Translates complex text into more straightforward concepts",
-      "thumbnail":"",
+      "thumbnail":"https://storage.googleapis.com/itify-customshirt.appspot.com/chatGPT2/icon/icon-summarize.png",
       "metaData":{
         "prompt":"Summarize the below context:\n\n",
         "temperature":0,

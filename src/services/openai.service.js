@@ -43,8 +43,11 @@ const textCompletionGeneration = async (question, contextId, currentUser) => {
   const maxRequest = currentUser.profile.setting.maxRequestToken
   const maxToken = Math.floor(maxRequest - question.length * STRING_TOKEN_RATE - SAFETY_FACTOR)
   const masterToken = await getMasterToken()
-  const masterCollection = await getCollectionById(contextId)
-  const buildPrompt = masterCollection.dataValues.metaData.prompt + question
+  let masterCollection = null
+  if (contextId) {
+    masterCollection = await getCollectionById(contextId)
+  }
+  const buildPrompt = masterCollection ? masterCollection.dataValues.metaData.prompt + question : question
   try {
     const bufferData = await axios.post(
       OPEN_AI_API_ENDPOINT,

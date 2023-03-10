@@ -47,7 +47,7 @@ const textCompletionGeneration = async (question, contextId, currentUser) => {
   if (contextId) {
     masterCollection = await getCollectionById(contextId)
   }
-  const buildPrompt = contextId ? masterCollection.dataValues.metaData.prompt + question : question
+  const buildPrompt = masterCollection ? masterCollection.dataValues.metaData.prompt + question : question
   try {
     const bufferData = await axios.post(
       OPEN_AI_API_ENDPOINT,

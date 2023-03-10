@@ -8,7 +8,7 @@ const MasterRate = db.sequelize().define(
     type: DataTypes.STRING,
     amount: DataTypes.DECIMAL,
     name: DataTypes.STRING,
-    credits: DataTypes.DECIMAL,
+    credits: DataTypes.BIGINT,
     validFlag: DataTypes.INTEGER,
     createdAt: DataTypes.BIGINT,
     updatedAt: DataTypes.BIGINT

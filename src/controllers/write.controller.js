@@ -2,8 +2,9 @@
 import { textCompletionGeneration } from '../services/openai.service'
 import to from '../utils/to'
 import handleResponse from '../utils/handle-response'
+import { groupByKey } from '../utils/helper.util'
 import { getModelSetting, getMasterCollection } from '../services/master'
-import { NOT_FOUND_CODE, SUCCESS_CODE } from '../constants/responseCode'
+import { NOT_FOUND_CODE } from '../constants/responseCode'
 /**
  * Builds chat with user
  * @param {any} req
@@ -61,5 +62,6 @@ export const getModels = async (req, res, next) => {
 
 export const getCollection = async (req, res, next) => {
   const [error, result] = await to(getMasterCollection())
-  return handleResponse(error, result, req, res)
+  const data = groupByKey(result, 'category')
+  return handleResponse(error, data, req, res)
 }

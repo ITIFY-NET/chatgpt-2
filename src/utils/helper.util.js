@@ -9,7 +9,16 @@ function emptyOrRows(rows) {
   return rows
 }
 
+function groupByKey(ungroupedArray, key) {
+  return ungroupedArray.reduce(function (groupedArray, object) {
+      groupedArray[object[key]] = groupedArray[object[key]] || [];
+      groupedArray[object[key]].push(object)
+      return groupedArray
+  }, Object.create(null))
+}
+
 module.exports = {
   getOffset,
-  emptyOrRows
+  emptyOrRows,
+  groupByKey
 }

@@ -24,15 +24,18 @@ function groupByKey(ungroupedArray, key) {
  */
 function groupCollection(data, key) {
   const objGroup = {}
+  let index = 1
   data.map((item) => {
     const keyCheck = item[key]
     if (!objGroup[keyCheck]) {
       objGroup[keyCheck] = {
         category: keyCheck,
-        data: [item]
+        id: index,
+        list: [item]
       }
+      index += 1
     } else {
-      objGroup[keyCheck]['data'].push(item)
+      objGroup[keyCheck]['list'].push(item)
     }
     return item
   })

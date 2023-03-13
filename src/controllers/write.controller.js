@@ -30,9 +30,15 @@ export const create = async (req, res, next) => {
         res.write(dataResponse)
         res.end()
       } else {
-        const objectJson = JSON.parse(streamData)
-        finalResult += objectJson.choices[0].text
-        const dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        let dataResponse = ''
+        try {
+          const objectJson = JSON.parse(streamData)
+          finalResult += objectJson.choices[0].text
+          dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        } catch (error) {
+          console.log(error)
+          dataResponse = `data: ${JSON.stringify({ result: '', status: null })}\n\n`
+        }
         res.write(dataResponse)
       }
     })

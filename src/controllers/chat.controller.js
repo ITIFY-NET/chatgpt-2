@@ -28,9 +28,14 @@ export const create = async (request, response, next) => {
         response.write(dataResponse)
         response.end()
       } else {
-        const objectJson = JSON.parse(objectStream)
-        finalResult += objectJson.choices[0].text
-        const dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        let dataResponse = ''
+        try {
+          const objectJson = JSON.parse(objectStream)
+          finalResult += objectJson.choices[0].text
+          dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        } catch (error) {
+          dataResponse = `data: ${JSON.stringify({ result: ' ERROR ', status: null })}\n\n`
+        }
         response.write(dataResponse)
       }
     })

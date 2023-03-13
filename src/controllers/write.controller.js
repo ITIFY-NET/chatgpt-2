@@ -1,10 +1,10 @@
 // @ts-nocheck
-import { textCompletionGeneration } from '../services/openai.service'
-import to from '../utils/to'
-import handleResponse from '../utils/handle-response'
-import { groupByKey } from '../utils/helper.util'
-import { getModelSetting, getMasterCollection } from '../services/master'
 import { NOT_FOUND_CODE } from '../constants/responseCode'
+import { getMasterCollection, getModelSetting } from '../services/master'
+import { textCompletionGeneration } from '../services/openai.service'
+import handleResponse from '../utils/handle-response'
+import { groupCollection } from '../utils/helper.util'
+import to from '../utils/to'
 /**
  * Builds chat with user
  * @param {any} req
@@ -62,6 +62,7 @@ export const getModels = async (req, res, next) => {
 
 export const getCollection = async (req, res, next) => {
   const [error, result] = await to(getMasterCollection())
-  const data = groupByKey(result, 'category')
+  const data = groupCollection(result, 'category')
+
   return handleResponse(error, data, req, res)
 }

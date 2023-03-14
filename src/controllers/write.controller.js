@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { textCompletionGeneration } from '../services/openai.service'
-import to from '../utils/to'
-import handleResponse from '../utils/handle-response'
-import { groupByKey } from '../utils/helper.util'
-import { getModelSetting, getMasterCollection } from '../services/master'
 import { NOT_FOUND_CODE } from '../constants/responseCode'
 import { createConversation, createMessage } from '../services/chat.service'
 import { ROLE_CONVERSATION, TYPE_COMPLETIONS } from '../constants/system'
+import { getMasterCollection, getModelSetting } from '../services/master'
+import { textCompletionGeneration } from '../services/openai.service'
+import handleResponse from '../utils/handle-response'
+import { groupCollection } from '../utils/helper.util'
+import to from '../utils/to'
 /**
  * Builds chat with user
  * @param {any} req
@@ -43,9 +43,15 @@ export const create = async (req, res, next) => {
         res.write(dataResponse)
         res.end()
       } else {
-        const objectJson = JSON.parse(streamData)
-        finalResult += objectJson.choices[0].text
-        const dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        let dataResponse = ''
+        try {
+          const objectJson = JSON.parse(streamData)
+          finalResult += objectJson.choices[0].text
+          dataResponse = `data: ${JSON.stringify({ result: objectJson.choices[0].text, status: null })}\n\n`
+        } catch (error) {
+          console.log(error)
+          dataResponse = `data: ${JSON.stringify({ result: '', status: null })}\n\n`
+        }
         res.write(dataResponse)
       }
     })
@@ -85,6 +91,7 @@ export const getModels = async (req, res, next) => {
 
 export const getCollection = async (req, res, next) => {
   const [error, result] = await to(getMasterCollection())
-  const data = groupByKey(result, 'category')
+  const data = groupCollection(result, 'category')
+
   return handleResponse(error, data, req, res)
 }

@@ -8,6 +8,8 @@ import Notification from './notification'
 import TransactionHistory from './transactionHistories'
 import ModelSetting from './modelSettings'
 import MasterToken from './masterToken'
+import Conversations from './conversation'
+import Messages from './message'
 
 Account.hasOne(Profile, {
   as: 'profile',
@@ -32,6 +34,13 @@ Account.hasOne(DeviceToken, {
   as: 'deviceToken',
   foreignKey: 'accountId'
 })
+Conversations.hasMany(Messages, {
+  as: 'messages',
+  foreignKey: 'conversationId'
+})
+Messages.belongsTo(Conversations, {
+  foreignKey: 'accountId'
+})
 export {
   Account,
   Balance,
@@ -41,5 +50,7 @@ export {
   Notification,
   TransactionHistory,
   MasterToken,
-  ModelSetting
+  ModelSetting,
+  Conversations,
+  Messages
 }

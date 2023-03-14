@@ -153,7 +153,7 @@ const tokenExtractorV1 = async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(authorization.substring(BEARER_LENGTH), config.SECRET)
 
-    const currentUser = await models.Account.findOne({
+    const currentUser = await Account.findOne({
       where: {
         // @ts-ignore
         id: decodedToken.data.accountInfo.id,

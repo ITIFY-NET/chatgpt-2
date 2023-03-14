@@ -18,8 +18,7 @@ const Messages = db.sequelize().define(
     role: DataTypes.STRING,
     content: DataTypes.TEXT,
     validFlag: DataTypes.INTEGER,
-    createdAt: DataTypes.BIGINT,
-    updatedAt: DataTypes.BIGINT
+    createdAt: DataTypes.BIGINT
   },
   {
     timestamps: false

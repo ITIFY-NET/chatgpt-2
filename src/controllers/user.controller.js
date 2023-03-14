@@ -1,4 +1,4 @@
-import { updateSettingModelUser, getModelSetting } from '../services/user'
+import { updateSettingModelUser } from '../services/user'
 import handleResponse from '../utils/handle-response'
 import to from '../utils/to'
 

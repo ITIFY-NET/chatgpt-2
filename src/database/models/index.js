@@ -38,9 +38,9 @@ Conversations.hasMany(Messages, {
   as: 'messages',
   foreignKey: 'conversationId'
 })
-Messages.belongsTo(Conversations, {
-  foreignKey: 'accountId'
-})
+// Messages.belongsTo(Conversations, {
+//   foreignKey: 'accountId'
+// })
 export {
   Account,
   Balance,

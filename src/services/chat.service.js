@@ -1,7 +1,7 @@
 import Conversations from '../database/models/conversation'
 import Messages from '../database/models/message'
 
-export const createConverstation = async (data) => {
+export const createConversation = async (data) => {
   return Conversations.create(data)
 }
 

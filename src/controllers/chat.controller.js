@@ -2,7 +2,7 @@
 import { NOT_FOUND_CODE } from '../constants/responseCode'
 import { chatCompletionGeneration } from '../services/openai.service'
 import handleResponse from '../utils/handle-response'
-import { createConverstation, createMessage } from '../services/chat.service'
+import { createConversation, createMessage } from '../services/chat.service'
 import { ROLE_CONVERSATION, TYPE_COMPLETIONS } from '../constants/system'
 
 /**
@@ -26,8 +26,8 @@ export const create = async (request, response, next) => {
     // arrayBuffer.data.pipe(response)
     let conversation = null
     if (!conversationId) {
-      conversation = await createConverstation({
-        type: TYPE_COMPLETIONS.write,
+      conversation = await createConversation({
+        type: TYPE_COMPLETIONS.chat,
         accountId,
         firstQuestion: question
       })
